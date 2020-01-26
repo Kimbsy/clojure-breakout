@@ -1,14 +1,21 @@
 (ns breakout.core
   (:gen-class)
   (:require [quil.core :as q]
-            [quil.middleware :as m]))
+            [quil.middleware :as m]
+            [breakout.sprite.ball :as ball]
+            [breakout.sprite.brick :as brick]
+            [breakout.sprite.paddle :as paddle]))
 
 (defn setup
   "This function is called once when the game starts, it should
   configure settings and return the starting game state."
   []
   ;; just an empty map for now
-  {})
+  {:bricks (brick/initial-bricks)
+   :paddle (paddle/->paddle)
+   :ball (ball/->ball)
+   :remaining-balls 3
+   :score 0})
 
 (defn draw-state
   "This function is called every frame, it takes the game state for the
@@ -16,7 +23,12 @@
   return nil."
   [state]
   ;; draw a black background
-  (q/background 0))
+  (q/background 0)
+
+  ;; draw the sprites
+  (brick/draw-bricks state)
+  (paddle/draw-paddle state)
+  (ball/draw-ball state))
 
 (defn update-state
   "This function is also called every frame, it takes the game state for

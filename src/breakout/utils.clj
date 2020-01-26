@@ -1,0 +1,11 @@
+(ns breakout.utils)
+
+(def white  [255 255 255])
+(def black  [0   0   0  ])
+(def grey   [127 127 127])
+(def red    [255 0   0  ])
+(def orange [255 127 0  ])
+(def yellow [255 255 0  ])
+(def green  [0   255 0  ])
+(def blue   [0   0   255])
+(def purple [255 0   255])

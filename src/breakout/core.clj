@@ -35,8 +35,22 @@
   the current frame and shoud return the new game state for the next
   frame."
   [state]
-  ;; not modifying the state, nothing will change between frames
-  state)
+  (some-> state
+          (ball/update-state)))
+
+(defn mouse-moved-handler
+  "In this function we can pass the mouse-moved event to any handlers
+  that might want to act on it by updating the game state."
+  [state e]
+  ;; only the paddle reacts to mouse movements
+  (paddle/mouse-moved-handler state e))
+
+(defn mouse-clicked-handler
+  "In this function we can pass the mouse-clicked event to any handlers
+  that might want to act on it by updating the game state."
+  [state e]
+  ;; only the ball reacts to mouse clicks
+  (ball/mouse-clicked-handler state e))
 
 (defn -main
   "This is the entry point to our game where we define and run our
@@ -48,4 +62,6 @@
    :setup setup
    :draw draw-state
    :update update-state
+   :mouse-moved mouse-moved-handler
+   :mouse-clicked mouse-clicked-handler
    :middleware [m/fun-mode]))
